@@ -150,7 +150,6 @@ func PostRequest(url string, grepPattern string) {
 
 	// Check if the pattern is found
 	found := len(matches) > 0
-	printVuln(url, grepPattern)
 
 	if found {
 		printVuln(url, grepPattern)
