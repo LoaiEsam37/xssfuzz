@@ -80,7 +80,7 @@ func Scanning(targets []string, payloads []string) {
 		sanitizedURL := strings.TrimSpace(targets[i])
 		u, err := url.Parse(sanitizedURL)
 		if err != nil {
-			panic(err)
+			continue // skips a loop
 		}
 
 		// Parse the query parameters
@@ -126,21 +126,18 @@ func Scanning(targets []string, payloads []string) {
 func PostRequest(url string, grepPattern string) {
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {
-		fmt.Println("Error creating request:", err)
 		return
 	}
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Println("Error making request:", err)
 		return
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Println("Error reading response body:", err)
 		return
 	}
 
